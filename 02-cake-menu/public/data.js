@@ -1,0 +1,63 @@
+const cakeData = [
+  {
+    name: "Chocolate Truffle Cake",
+    ingredients: ["flour", "cocoa powder", "sugar", "butter", "cream"],
+    price: 650,
+    photo: "cakes/chocolate-truffle.webp",
+    soldOut: false,
+  },
+  {
+    name: "Red Velvet Cake",
+    ingredients: [
+      "flour",
+      "cocoa powder",
+      "buttermilk",
+      "cream cheese",
+      "sugar",
+    ],
+    price: 750,
+    photo: "cakes/red-velvet.webp",
+    soldOut: true,
+  },
+  {
+    name: "Black Forest Cake",
+    ingredients: [
+      "flour",
+      "cocoa powder",
+      "cherries",
+      "whipped cream",
+      "chocolate shavings",
+    ],
+    price: 700,
+    photo: "cakes/black-forest.webp",
+    soldOut: false,
+  },
+  {
+    name: "Pineapple Cake",
+    ingredients: ["flour", "pineapple", "sugar", "whipped cream"],
+    price: 550,
+    photo: "cakes/pineapple-cake.webp",
+    soldOut: false,
+  },
+  {
+    name: "Strawberry Cake",
+    ingredients: ["flour", "strawberries", "sugar", "butter", "cream"],
+    price: 600,
+    photo: "cakes/strawberry-cake.webp",
+    soldOut: true,
+  },
+  {
+    name: "BlueBerry Cheesecake",
+    ingredients: [
+      "blueberries",
+      "cream cheese",
+      "sugar",
+      "eggs",
+      "butter",
+      "biscuits",
+    ],
+    price: 800,
+    photo: "cakes/blueberry-cheesecake.webp",
+    soldOut: false,
+  },
+];

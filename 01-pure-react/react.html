@@ -18,10 +18,10 @@
         React.useEffect(function () {
           setInterval(() => setTime(new Date().toLocaleTimeString()), 1000);
         }, []);
-        return React.createElement("header", null, `Hello React! It's ${time}`);
+        return React.createElement("header", null, `Hello React! It's ${time}`); // syntax: tag/props/children,content
       }
 
-      const root = ReactDOM.createRoot(document.getElementById("root"));
+      const root = ReactDOM.createRoot(document.getElementById("root")); //MyApp will be rendered inside this
       //   const container = document.getElementById("root");
       root.render(React.createElement(MyApp));
     </script>
