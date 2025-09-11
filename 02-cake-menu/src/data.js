@@ -61,3 +61,4 @@ const cakeData = [
     soldOut: false,
   },
 ];
+module.exports = cakeData;
