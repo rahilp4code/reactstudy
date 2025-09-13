@@ -35,13 +35,16 @@ function Menu() {
         </ul>
       )} */}
       {Data.length > 0 ? (
-        <ul className="pizzas">
-          {Data.map((cake) => (
-            <Cakes dataObj={cake} key={cake.name} />
-          ))}
-        </ul>
+        <>
+          <p>Freshly baked and ready to be delivered with Love💝</p>
+          <ul className="pizzas">
+            {Data.map((cake) => (
+              <Cakes dataObj={cake} key={cake.name} />
+            ))}
+          </ul>
+        </>
       ) : (
-        <p>We are working on our menu. Please come back later :)</p>
+        <p>We are working on our menu. Please come back later </p>
       )}
       {/* <Cakes
         name="Chocolate Truffle Cake"
@@ -96,13 +99,14 @@ function Menu() {
   );
 }
 function Cakes({ dataObj }) {
-  if (dataObj.soldOut) return null;
+  // if (dataObj.soldOut) return null;
   return (
-    <li className="pizza">
+    <li className={`pizza ${dataObj.soldOut ? "sold-out" : ""}`}>
       <img src={dataObj.photo} alt="Chocolate Truffle" />
       <h3>{dataObj.name}</h3>
       <p>{dataObj.ingredients}</p>
-      <span>{dataObj.price}</span>
+      {/* {dataObj.soldOut ? <span>SOLD OUT!</span> : <span>{dataObj.price}</span>} */}
+      <span>{dataObj.soldOut ? "SOLD OUT!" : dataObj.price}</span>
     </li>
   );
 }
@@ -117,7 +121,7 @@ function Footer() {
   return (
     <footer className="footer">
       {/* <h1>{new Date().toLocaleTimeString()}. We are open!..</h1> */}
-      {IsOpen && <IsOpen closeTime={close} />}
+      {<IsOpen closeTime={close} />}
     </footer>
   );
 }
