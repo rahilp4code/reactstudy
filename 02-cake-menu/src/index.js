@@ -47,7 +47,7 @@ function Menu() {
         <p>We are working on our menu. Please come back later </p>
       )}
       {/* <Cakes
-        name="Chocolate Truffle Cake"
+        name="Chocolate Truffle Cake"klninioji
         photo="cakes/chocolate-truffle.webp"
         ingedients="flour, cocoa powder, sugar, butte, cream"
         price={650}
