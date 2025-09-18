@@ -19,33 +19,66 @@ body {
 }
 
 .app {
+  /* background: linear-gradient(
+    45deg,
+    #53436d,
+    #94547f,
+    #cf6a7e,
+    #f98e70,
+    #ffc064,
+    #f9f871
+  ); */
+  background: radial-gradient(
+    circle,
+    /* #53436d, */ #94547f,
+    #cf6a7e,
+    #f98e70,
+    #ffc064,
+    #f9f871
+  );
+  /* background: radial-gradient(
+    circle,
+    #e8f5f2,
+    #cdeae1,
+    #b2ddd1,
+    #8ec6b7,
+    #6baa9b,
+    #4e8c7e
+  ); */
   width: 100%;
   height: 100vh;
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  /* display: grid;
+  grid-template-rows: auto auto 1fr auto; */
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* full screen height */
 }
 
 h1 {
   text-align: center;
-  background-color: #f4a226;
-  /* background-color: #ffcdd2; */
   font-family: "Monoton";
-  font-size: 8rem;
+  font-size: 4rem;
   text-transform: uppercase;
   font-weight: 400;
   word-spacing: 30px;
   letter-spacing: -5px;
-  padding: 2.4rem 0;
+  padding: 1rem 1rem;
 }
 
 .add-form {
-  background-color: #e5771f;
-  /* background-color: #fb7e96; */
-  padding: 2.8rem 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 2.2rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   gap: 0.8rem;
+  flex: 0 0 auto;
+}
+.add-form h1 {
+  position: absolute;
+  left: 1rem; /* adjust how much left */
+  top: 1rem;
 }
 
 h3 {
@@ -73,9 +106,13 @@ input {
 }
 
 .list {
-  background-color: #5a3e2b;
-  /* background-color: #ef534f; */
+  /* background-color: #5a3e2b; */
   color: #ffebb3;
+  background-image: url("../public/color-scheme-left.svg"),
+    url("../public/spacecraft.svg");
+  background-repeat: no-repeat;
+  background-size: 500px, 450px; /* adjust size */
+  background-position: left bottom, right top; /* stick to bottom-left */
   padding: 4rem 0;
 
   display: flex;
@@ -83,6 +120,9 @@ input {
   flex-direction: column;
   gap: 3.2rem;
   align-items: center;
+  /* height: 82.2vh; */
+  flex: 1; /* 👈 this makes it expand and take all remaining space */
+  overflow-y: auto;
 }
 
 .actions button,
@@ -129,10 +169,19 @@ input[type="checkbox"] {
 }
 
 .stats {
-  /* background-color: #76c7ad; */
-  /* background: linear-gradient(90deg, #1fa2ff, #12d8fa, #a6ffcb); */
-  background: linear-gradientlinear-gradient(90deg, #ffdee9, #b5fffc);
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+
   text-align: center;
   font-weight: 700;
-  padding: 3.2rem 0;
+  padding: 2rem 0;
+  height: 8vh;
+
+  /* position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%; */
+  .stats {
+    flex: 0 0 auto; /* footer sticks at bottom */
+  }
 }

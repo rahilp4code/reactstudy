@@ -2,7 +2,7 @@ export default function Stat({ task }) {
   if (task.length === 0)
     return (
       <footer className="stats">
-        <em>Start adding your goals for today⚽</em>
+        <em>Start adding your goals for today</em>
       </footer>
     );
 

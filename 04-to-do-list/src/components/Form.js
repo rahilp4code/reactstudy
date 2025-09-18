@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function Form({ addTask }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   function handleSubmit(e) {
     e.preventDefault();
     if (!description) return;
@@ -16,7 +17,13 @@ export default function Form({ addTask }) {
   }
   return (
     <form className="add-form" onSubmit={handleSubmit}>
+      <h1>To Do List </h1>
       <h3>Today's GRIND</h3>
+      <input
+        type="date"
+        value={selectedDate}
+        onChange={(e) => setSelectedDate(e.target.value)}
+      />
       <select
         value={quantity}
         onChange={(e) => setQuantity(Number(e.target.value))}

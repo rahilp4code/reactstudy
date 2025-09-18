@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Logo from "./Logo";
+// import Logo from "./Logo";
 import Form from "./Form";
 import List from "./List";
 import Stat from "./Stat";
@@ -32,7 +32,7 @@ function App() {
   }
   return (
     <div className="app">
-      <Logo />
+      {/* <Logo /> */}
       <Form addTask={handleTask} />
       <List
         tasks={task}
@@ -47,6 +47,7 @@ function App() {
 
 export default App;
 
+//
 //83 delete button work krneke liye pehle function then usko pass kiya child meh,
 //84 checkbox banaya
 //85 derived state
