@@ -32,7 +32,7 @@ function App() {
   }
   return (
     <div className="app">
-      {/* <Logo /> */}
+      {/* <Logo />  */}
       <Form addTask={handleTask} />
       <List
         tasks={task}
@@ -46,14 +46,3 @@ function App() {
 }
 
 export default App;
-
-//
-//83 delete button work krneke liye pehle function then usko pass kiya child meh,
-//84 checkbox banaya
-//85 derived state
-//86 using derived state to implement the footer data
-//87 made sorting selection
-//88 clear button
-//89 component seperation and refractoring
-//90 exercise
-//91 chilren prop
