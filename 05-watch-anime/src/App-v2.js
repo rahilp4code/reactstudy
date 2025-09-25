@@ -1,69 +1,72 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// i=tt3896198&
 
-const tempMovieData = [
-  {
-    imdbID: "tt1375666",
-    Title: "Inception",
-    Year: "2010",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-  },
-  {
-    imdbID: "tt0133093",
-    Title: "The Matrix",
-    Year: "1999",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
-  },
-  {
-    imdbID: "tt6751668",
-    Title: "Parasite",
-    Year: "2019",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
-  },
-];
-
-const tempWatchedData = [
-  {
-    imdbID: "tt1375666",
-    Title: "Inception",
-    Year: "2010",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
-    runtime: 148,
-    imdbRating: 8.8,
-    userRating: 10,
-  },
-  {
-    imdbID: "tt0088763",
-    Title: "Back to the Future",
-    Year: "1985",
-    Poster:
-      "https://m.media-amazon.com/images/M/MV5BZmU0M2Y1OGUtZjIxNi00ZjBkLTg1MjgtOWIyNThiZWIwYjRiXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-    runtime: 116,
-    imdbRating: 8.5,
-    userRating: 9,
-  },
-];
+const KEY = "20b9e588";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-  const [movies] = useState(tempMovieData);
-  const [watched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState("");
+  const [watched, setWatched] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(
+    function () {
+      async function fetchMovies() {
+        try {
+          setLoading(true);
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${encodeURIComponent(
+              query
+            )}`
+          );
+          if (!res.ok) throw new Error("Network error while fetching Movies");
+
+          const data = await res.json();
+          console.log(data);
+          // if (data.Response === "False") throw new Error("Movie not found");
+
+          if (data.Response === "False") {
+            setMovies([]);
+            throw new Error(data.Error || "Movie not found");
+          }
+          setError("");
+          setMovies(data.Search);
+        } catch (err) {
+          console.error(err);
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      }
+      fetchMovies();
+    },
+    [query]
+  );
+
+  //useEffects makes the code run after the component instance is rendered
+  //dependency array can be used to tell the effect to also run after a component re-renders
 
   return (
     <>
       <NavBar>
         <Search />
-        <NumResults movies={movies} />
+        <NumResults
+          movies={movies}
+          query={query}
+          setQuery={(e) => setQuery(e.target.value)}
+        />
       </NavBar>
 
       <Main>
         <Box>
-          <MovieList movies={movies} />
+          {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
+          {isLoading && <Loader />}
+          {error && <Error message={error} />}
+          {!isLoading && !error && <MovieList movies={movies} />}
         </Box>
 
         <Box>
@@ -72,6 +75,18 @@ export default function App() {
         </Box>
       </Main>
     </>
+  );
+}
+
+function Loader() {
+  return <p className="loader">Loading...</p>;
+}
+function Error({ message }) {
+  return (
+    <p className="error">
+      <span>💥</span>
+      {message}
+    </p>
   );
 }
 
@@ -93,16 +108,14 @@ function Logo() {
   );
 }
 
-function Search() {
-  const [query, setQuery] = useState("");
-
+function Search({ query, setQuery }) {
   return (
     <input
       className="search"
       type="text"
       placeholder="Search movies..."
       value={query}
-      onChange={(e) => setQuery(e.target.value)}
+      onChange={setQuery}
     />
   );
 }
@@ -110,7 +123,7 @@ function Search() {
 function NumResults({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>{movies.length}</strong> results
+      Found <strong>{movies ? movies.length : 0}</strong> results
     </p>
   );
 }
