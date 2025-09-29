@@ -25,7 +25,8 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
   color: var(--color-text);
-  background-color: var(--color-background-900);
+  /* background-color: var(--color-background-900); */
+  background-color: black;
   padding: 2.4rem;
 }
 
@@ -37,10 +38,16 @@ body {
   align-items: center;
   height: 7.2rem;
   padding: 0 3.2rem;
-  background-color: var(--color-primary);
+  /* background-color: var(--color-primary); */
+  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 0.9rem;
 }
-
+* {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
 .main {
   margin-top: 2.4rem;
   height: calc(100vh - 7.2rem - 3 * 2.4rem);
@@ -51,12 +58,13 @@ body {
 
 .box {
   width: 50rem;
-  max-width: 55rem;
-  background-color: var(--color-background-500);
+  max-width: 50rem;
+  /* background-color: var(--color-background-500); */
+  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 0.9rem;
   overflow: scroll;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .loader {
@@ -68,7 +76,6 @@ body {
 }
 
 .error {
-  color: white;
   text-align: center;
   font-size: 2rem;
   padding: 4.8rem;
@@ -100,10 +107,12 @@ body {
   border-radius: 0.7rem;
   width: 40rem;
   transition: all 0.3s;
-  color: var(--color-text);
+  /* color: var(--color-text); */
 
   /* background-color: var(--color-background-900); */
-  background-color: var(--color-primary-light);
+  /* background-color: var(--color-primary-light); */
+  background-color: white;
+  color: grey;
 }
 
 .search::placeholder {
@@ -216,7 +225,8 @@ body {
 .summary {
   padding: 2.2rem 3.2rem 1.8rem 3.2rem;
   border-radius: 0.9rem;
-  background-color: var(--color-background-100);
+  /* background-color: var(--color-background-100); */
+  background-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.2);
 }
 
@@ -285,6 +295,7 @@ body {
 
 .rating {
   background-color: var(--color-background-100);
+  /* background-color: black; */
   border-radius: 0.9rem;
   padding: 2rem 2.4rem;
   margin-bottom: 0.8rem;
