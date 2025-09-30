@@ -48,7 +48,7 @@ const tempWatchedData = [
 ];
 
 const average = (arr) =>
-  arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+  Math.round(arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0));
 
 export default function App() {
   const [movies] = useState(tempMovieData);

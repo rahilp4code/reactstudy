@@ -57,8 +57,8 @@ body {
 }
 
 .box {
-  width: 50rem;
-  max-width: 50rem;
+  width: 70rem;
+  max-width: 70rem;
   /* background-color: var(--color-background-500); */
   background-color: rgba(255, 255, 255, 0.15);
   border-radius: 0.9rem;
