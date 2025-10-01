@@ -10,15 +10,10 @@ const KEY = "20b9e588";
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState("");
+  const [watched, setWatched] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState("");
-
-  // const [watched, setWatched] = useState([]);
-  const [watched, setWatched] = useState(function () {
-    const internalData = localStorage.getItem("watched");
-    return JSON.parse(internalData);
-  });
 
   function handleSelectedId(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -32,14 +27,6 @@ export default function App() {
   function handleWatchedRemove(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
-
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
-
   useEffect(
     function () {
       const controller = new AbortController();
@@ -87,6 +74,9 @@ export default function App() {
     [query]
   );
 
+  //useEffects makes the code run after the component instance is rendered
+  //dependency array can be used to tell the effect to also run after a component re-renders
+
   return (
     <>
       <NavBar>
@@ -96,6 +86,7 @@ export default function App() {
 
       <Main>
         <Box>
+          {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
           {isLoading && <Loader />}
           {error && <Error message={error} />}
           {!isLoading && !error && (
@@ -193,6 +184,31 @@ function Box({ children }) {
     </div>
   );
 }
+
+/*
+function WatchedBox() {
+  const [watched, setWatched] = useState(tempWatchedData);
+  const [isOpen2, setIsOpen2] = useState(true);
+
+  return (
+    <div className="box">
+      <button
+        className="btn-toggle"
+        onClick={() => setIsOpen2((open) => !open)}
+      >
+        {isOpen2 ? "–" : "+"}
+      </button>
+
+      {isOpen2 && (
+        <>
+          <WatchedSummary watched={watched} />
+          <WatchedMoviesList watched={watched} />
+        </>
+      )}
+    </div>
+  );
+}
+*/
 
 function MovieList({ movies, setId }) {
   return (
@@ -351,6 +367,28 @@ function MovieDetails({ selectedId, closeId, addWatch, watched }) {
 }
 
 function WatchedSummary({ watched }) {
+  // const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
+  // const avgUserRating = average(watched.map((movie) => movie.userRating));
+  // const avgRuntime = average(watched.map((movie) => movie.runtime));
+
+  //     <div>
+  //       <p>
+  //         <span>#️⃣</span>
+  //         <span>{watched.length} movies</span>
+  //       </p>
+  //       <p>
+  //         <span>⭐️</span>
+  //         <span>{avgImdbRating}</span>
+  //       </p>
+  //       <p>
+  //         <span>🌟</span>
+  //         <span>{avgUserRating}</span>
+  //       </p>
+  //       <p>
+  //         <span>⏳</span>
+  //         <span>{avgRuntime} min</span>
+  //       </p>
+  //     </div>
   return (
     <div className="summary">
       <h2>watched List</h2>
@@ -383,18 +421,18 @@ function WatchedMovie({ movie, removeWatched }) {
           <span>⭐️</span>
           <span>{movie.imdbRating}</span>
         </p>
-        {/* <p>
+        <p>
           <span>🌟</span>
           <span>{movie.userRating}</span>
-        </p> */}
-        {/* {movie.runtime ? (
+        </p>
+        {movie.runtime ? (
           <p>
             <span>⏳</span>
             <span>{movie.runtime} min</span>
           </p>
         ) : (
           ""
-        )} */}
+        )}
         <button
           className="btn-delete"
           onClick={() => removeWatched(movie.imdbID)}
@@ -406,7 +444,8 @@ function WatchedMovie({ movie, removeWatched }) {
   );
 }
 
-//interstellar
-//shutter island
-//inception
-//back to the future
+//prop drilling: passing prop from parent to child  where there are more levels
+//component composition
+//using composition, making reusable component using composition
+//passing elements as props
+//started building star-rating
