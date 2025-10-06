@@ -7,7 +7,11 @@ import NextButton from "./NextButton";
 // import Counter from "./component/counter";
 import { useEffect, useReducer } from "react";
 import Progress from "./Progress";
+import Finish from "./Finish";
+import Footer from "./Footer";
+import Timer from "./Timer";
 
+const SEC_PER_QUESTION = 30;
 const initialVal = {
   questions: [],
 
@@ -16,6 +20,8 @@ const initialVal = {
   index: 0,
   answer: null,
   points: 0,
+  highScore: 0,
+  timer: null,
 };
 
 function reducer(state, action) {
@@ -26,7 +32,11 @@ function reducer(state, action) {
       status: "ready",
     }),
     error: () => ({ ...state, status: "error" }),
-    start: () => ({ ...state, status: "active" }),
+    start: () => ({
+      ...state,
+      status: "active",
+      timer: state.questions.length * SEC_PER_QUESTION,
+    }),
     newAnswer: () => {
       const question = state.questions.at(state.index);
 
@@ -40,16 +50,31 @@ function reducer(state, action) {
       };
     },
     nextQuestion: () => ({ ...state, index: state.index + 1, answer: null }),
+    finish: () => ({
+      ...state,
+      status: "finish",
+      highScore:
+        state.points > state.highScore ? state.points : state.highScore,
+    }),
+    reStart: () => ({
+      ...initialVal,
+      status: "ready",
+    }),
+    timer: () => ({
+      ...state,
+      timer: state.timer - 1,
+      status: state.timer === 0 ? "finish" : state.status,
+    }),
   };
 
   return actions[action.type]?.() ?? state;
 }
 
 export default function App() {
-  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
-    reducer,
-    initialVal
-  );
+  const [
+    { questions, status, index, answer, points, highScore, timer },
+    dispatch,
+  ] = useReducer(reducer, initialVal);
 
   useEffect(function () {
     fetch("http://localhost:8000/questions")
@@ -84,10 +109,31 @@ export default function App() {
               dispatch={dispatch}
               answer={answer}
             />
-            <NextButton dispatch={dispatch} answer={answer} />
+            <Footer>
+              <Timer dispatch={dispatch} reamiainingTime={timer} />
+              <NextButton
+                index={index}
+                qLength={qLength}
+                dispatch={dispatch}
+                answer={answer}
+              />
+            </Footer>
           </>
+        )}
+        {status === "finish" && (
+          <Finish
+            points={points}
+            totalPoints={totalPoints}
+            highScore={highScore}
+            dispatch={dispatch}
+          />
         )}
       </main>
     </div>
   );
 }
+
+// future Improvmensts:
+// 1] add num of questions to select
+// 2] back and forth between question save the answer in an array
+// 3] difficulty thingy
