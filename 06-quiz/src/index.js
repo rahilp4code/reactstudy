@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./component/App";
+import App from "./components/App";
+import { QuestionProvider } from "./context/questionContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <QuestionProvider>
+      <App />
+    </QuestionProvider>
   </React.StrictMode>
 );
